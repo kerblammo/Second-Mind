@@ -25,7 +25,8 @@ namespace Loot_Dice
          * of their choosing. It also includes navigation to Help and Credits pages.
          */
 
-        
+        //list of players to be in game
+        public static List<string> players = new List<string>();
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
@@ -36,14 +37,14 @@ namespace Loot_Dice
                 MessageBox.Show("Please enter a player name.", "Missing Name");
                 txtAddPlayer.Focus();
             }
-            else if (cboPlayers.Items.Contains(name))   //duplicate id
+            else if (lstPlayers.Items.Contains(name))   //duplicate id
             {
                 MessageBox.Show("Player \"" + name + "\" already exists. \nPlease enter a unique name.", "Duplicate Player");
                 txtAddPlayer.Focus();
             }
             else    //Add player to list
             {
-                cboPlayers.Items.Add(name);
+                lstPlayers.Items.Add(name);
                 txtAddPlayer.Clear();
                 txtAddPlayer.Focus();
             }
@@ -52,25 +53,36 @@ namespace Loot_Dice
         private void btnClear_Click(object sender, EventArgs e)
         {
             //Clear entire player table
-            cboPlayers.Items.Clear();
+            lstPlayers.Items.Clear();
         }
 
         private void btnRemove_Click(object sender, EventArgs e)
         {
             //Remove checked players
-            for (int i = cboPlayers.Items.Count - 1; i >= 0; i--)
+            for (int i = lstPlayers.Items.Count - 1; i >= 0; i--)
             {
-                if (cboPlayers.GetItemChecked(i))
+                if (lstPlayers.GetItemChecked(i))
                 {
-                    cboPlayers.Items.RemoveAt(i);
+                    lstPlayers.Items.RemoveAt(i);
                 }
             }
         }
 
         private void btnStart_Click(object sender, EventArgs e)
         {
+
+            //Send player list to game
+            
+            foreach (string item in lstPlayers.Items)
+            {
+                players.Add(item);
+            }
+
             //opens new instance of game
-            frmMain Game = new frmMain();
+            frmMain Game = new frmMain(players);
+
+            
+
             Game.Show();
             //create new event handler for when game closes
             Game.FormClosed += new FormClosedEventHandler(Game_FormClosed);
@@ -79,13 +91,15 @@ namespace Loot_Dice
 
         private void Game_FormClosed(object sender, FormClosedEventArgs e)
         {
-            //Close application
-            Close();
+            //Show application
+            players.Clear();
+            Show();
         }
 
         bool isHelpOpen = false;
         private void btnHelp_Click(object sender, EventArgs e)
         {
+            //open the help page, if the help page isn't open
             if (!isHelpOpen)
             {
                 frmHelp Help = new frmHelp();
@@ -97,12 +111,14 @@ namespace Loot_Dice
 
         private void Help_FormClosed(object sender, FormClosedEventArgs e)
         {
+            //runs when Help is clsoed. Allows Help to be opened again
             isHelpOpen = false;
         }
 
         bool isCreditsOpen = false;
         private void btnCredits_Click(object sender, EventArgs e)
         {
+            //opens the credits page, if the credits page isn't open
             if (!isCreditsOpen)
             {
                 frmCredits Credits = new frmCredits();
@@ -115,6 +131,7 @@ namespace Loot_Dice
 
         private void Credits_FormClosed(object sender, FormClosedEventArgs e)
         {
+            //runs when Credits is closed. Allows Credits to be opened again
             isCreditsOpen = false;
         }
     }

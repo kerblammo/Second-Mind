@@ -31,7 +31,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnAdd = new System.Windows.Forms.Button();
             this.txtAddPlayer = new System.Windows.Forms.TextBox();
-            this.cboPlayers = new System.Windows.Forms.CheckedListBox();
+            this.lstPlayers = new System.Windows.Forms.CheckedListBox();
             this.btnRemove = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
             this.btnStart = new System.Windows.Forms.Button();
@@ -65,13 +65,13 @@
             this.txtAddPlayer.Size = new System.Drawing.Size(100, 20);
             this.txtAddPlayer.TabIndex = 0;
             // 
-            // cboPlayers
+            // lstPlayers
             // 
-            this.cboPlayers.FormattingEnabled = true;
-            this.cboPlayers.Location = new System.Drawing.Point(16, 41);
-            this.cboPlayers.Name = "cboPlayers";
-            this.cboPlayers.Size = new System.Drawing.Size(164, 94);
-            this.cboPlayers.TabIndex = 2;
+            this.lstPlayers.FormattingEnabled = true;
+            this.lstPlayers.Location = new System.Drawing.Point(16, 41);
+            this.lstPlayers.Name = "lstPlayers";
+            this.lstPlayers.Size = new System.Drawing.Size(164, 94);
+            this.lstPlayers.TabIndex = 2;
             // 
             // btnRemove
             // 
@@ -136,7 +136,7 @@
             this.Controls.Add(this.btnStart);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnRemove);
-            this.Controls.Add(this.cboPlayers);
+            this.Controls.Add(this.lstPlayers);
             this.Controls.Add(this.txtAddPlayer);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.label1);
@@ -154,7 +154,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.TextBox txtAddPlayer;
-        private System.Windows.Forms.CheckedListBox cboPlayers;
+        private System.Windows.Forms.CheckedListBox lstPlayers;
         private System.Windows.Forms.Button btnRemove;
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.Button btnStart;
