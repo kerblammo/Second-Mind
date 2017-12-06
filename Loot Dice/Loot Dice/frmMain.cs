@@ -30,8 +30,14 @@ namespace Loot_Dice
          */
 
         frmSplash splash = new frmSplash();
-        int strikes;
-        const int MaxStrikes = 3;
+        int strikes;    //current number of strikes current player has
+        const int MaxStrikes = 3;   //maximum number of strikes a player can have
+        int playersIndex = 0;      //index of current player in lvwPlayers
+        bool isNextPlayerPositive = false;      //indicates if play is moving up or down the list
+        int round = -1;              //current round. 0 means game has not started
+        
+        
+
         private void ResetGame()
         {
             //Resets the form to its default state
@@ -43,8 +49,87 @@ namespace Loot_Dice
 
             //get player list
             GetPlayers();
-            //Debug message to see if list is readable
-            MessageBox.Show("It is now " + lvwPlayers.Items[0].Text + "'s turn.");
+            //Start first round
+            StartTurn();
+        }
+
+        private void GameOver()
+        {
+            //STUBBED. Call when game is over
+            MessageBox.Show("GAME OVER");
+        }
+
+        private void StartTurn()
+        {
+            //called when turn ends to start the next turn
+
+            int totalPlayers = lvwPlayers.Items.Count;
+
+            //Determine next player
+
+            if (isNextPlayerPositive)   //play proceeds down list
+            {
+                playersIndex++;
+                if (playersIndex == totalPlayers)   //all out of players
+                {
+                    playersIndex--;
+                    StartRound();
+                }
+            }
+            else    //play proceeds up list
+            {
+                playersIndex--;
+                if (playersIndex == -1)     //all out of players
+                {
+                    playersIndex++;
+                    StartRound();
+                }
+            }
+
+            //Display Current Player
+            lblPlayer.Text = lvwPlayers.Items[playersIndex].Text;
+
+            //Find High Score and Leader
+            int leaderIndex = FindHiScore();
+            lblLeader.Text = lvwPlayers.Items[leaderIndex].Text;
+            lblHiScore.Text = lvwPlayers.Items[leaderIndex].SubItems[1].Text;
+
+
+
+        }
+
+        private int FindHiScore()
+        {
+            //returns the index of the player with the highest score
+            int index = 0, hiScore = Convert.ToInt32(lvwPlayers.Items[0].SubItems[1].Text);
+            for (int i = 1; i < lvwPlayers.Items.Count; i++)
+            {
+                int num = Convert.ToInt32(lvwPlayers.Items[i].SubItems[1].Text);
+                if (num > hiScore)
+                {
+                    hiScore = num;
+                    index = i;
+                }
+            }
+            return index;
+        }
+
+        private void StartRound()
+        {
+            //start the  next round of the game
+            //stops game if there are no more rounds remaining
+            string[] roundNames = new string[]{ "Dawn", "Day", "Dusk", "Dark" };
+            const int MaxRounds = 3;         //maximum number of rounds in game
+            round++;
+            if (round <= MaxRounds) 
+            {
+                isNextPlayerPositive = !isNextPlayerPositive; //toggle rotation of play
+                lblRound.Text = roundNames[round];
+            }
+            else
+            {
+                GameOver();
+            }
         }
 
         private void GetPlayers()
@@ -96,6 +181,12 @@ namespace Loot_Dice
         {
             //Set form to default state
             ResetGame();
+        }
+
+        private void btnBank_Click(object sender, EventArgs e)
+        {
+            //TODO temporarily just moves to next player
+            StartTurn();
         }
     }
 }

@@ -28,15 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
-            "Steve",
-            "0"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new string[] {
-            "Steven",
-            "0"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem(new string[] {
-            "Stefan",
-            "0"}, -1);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.lvwPlayers = new System.Windows.Forms.ListView();
             this.Player = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -100,10 +91,6 @@
             this.lvwPlayers.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.Player,
             this.Score});
-            this.lvwPlayers.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2,
-            listViewItem3});
             this.lvwPlayers.Location = new System.Drawing.Point(13, 13);
             this.lvwPlayers.Name = "lvwPlayers";
             this.lvwPlayers.Size = new System.Drawing.Size(200, 171);
@@ -182,6 +169,7 @@
             this.btnBank.TabIndex = 6;
             this.btnBank.Text = "Return to Tavern";
             this.btnBank.UseVisualStyleBackColor = true;
+            this.btnBank.Click += new System.EventHandler(this.btnBank_Click);
             // 
             // grpRoll
             // 

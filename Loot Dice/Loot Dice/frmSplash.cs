@@ -28,8 +28,22 @@ namespace Loot_Dice
         //list of players to be in game
         public static List<string> players = new List<string>();
 
+        private void EnableNewGame()
+        {
+            //checks if there are at least two players, and if there are, enables the start button
+            if (lstPlayers.Items.Count <= 1)
+            {
+                btnStart.Enabled = false;
+            }
+            else
+            {
+                btnStart.Enabled = true;
+            }
+        }
+
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            
             //Add a player to the player list
             string name = txtAddPlayer.Text;
             if (name == "")     //empty field
@@ -47,13 +61,16 @@ namespace Loot_Dice
                 lstPlayers.Items.Add(name);
                 txtAddPlayer.Clear();
                 txtAddPlayer.Focus();
+                EnableNewGame(); //if there are 2+ players, game is playable
             }
+            
         }
 
         private void btnClear_Click(object sender, EventArgs e)
         {
             //Clear entire player table
             lstPlayers.Items.Clear();
+            EnableNewGame(); //if there are not 2+ players, game is unplayable
         }
 
         private void btnRemove_Click(object sender, EventArgs e)
@@ -66,6 +83,7 @@ namespace Loot_Dice
                     lstPlayers.Items.RemoveAt(i);
                 }
             }
+            EnableNewGame(); //if there are not 2+ players, game is unplayable
         }
 
         private void btnStart_Click(object sender, EventArgs e)
@@ -134,5 +152,6 @@ namespace Loot_Dice
             //runs when Credits is closed. Allows Credits to be opened again
             isCreditsOpen = false;
         }
+        
     }
 }
