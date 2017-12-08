@@ -31,6 +31,7 @@ namespace Loot_Dice
 
         frmSplash splash = new frmSplash();
         int strikes;    //current number of strikes current player has
+        int points;
         const int MaxStrikes = 3;   //maximum number of strikes a player can have
         int playersIndex = 0;      //index of current player in lvwPlayers
         bool isNextPlayerPositive = false;      //indicates if play is moving up or down the list
@@ -54,7 +55,7 @@ namespace Loot_Dice
             //set dice
             SetDice();
             //hide dice
-            ShowAllDice(false);
+            ShowAllDice(false);      
 
             //get player list
             GetPlayers();
@@ -112,8 +113,11 @@ namespace Loot_Dice
             {
                 //Display Current Player
                 lblPlayer.Text = lvwPlayers.Items[playersIndex].Text;
-                MessageBox.Show("It is now " + lvwPlayers.Items[playersIndex].Text + "'s turn.", "Next Turn");
-
+                if (playersIndex != 0
+                || round != 0)
+                {
+                    MessageBox.Show("It is now " + lvwPlayers.Items[playersIndex].Text + "'s turn.", "Next Turn");
+                }
                 //Find High Score and Leader
                 int leaderIndex = FindHiScore();
                 lblLeader.Text = lvwPlayers.Items[leaderIndex].Text;
@@ -212,7 +216,97 @@ namespace Loot_Dice
             ShowLoot(show);
         }
 
+        private void CheckLoot()
+        {
+            //Check each image to see if it's a point. If it is, call SendLoot, sending the die's current image
+            //Loot dice are reset to empty emages
+            foreach (PictureBox pic in grpRoll.Controls.OfType<PictureBox>())
+            {
+                bool isSent = false;
+                if (pic.Image == bmpGreenPoint)    //Green die sent
+                {
+                    SendPoint(bmpGreenPoint);
+                    isSent = true;
+                }
+                else if (pic.Image == bmpYellowPoint)  //Yellow die sent
+                {
+                    SendPoint(bmpYellowPoint);
+                    isSent = true;
+                }
+                else if (pic.Image == bmpRedPoint)     //Red die sent
+                {
+                    SendPoint(bmpRedPoint);
+                    isSent = true;
+                }
+                if (isSent)     //a point has been sent, refresh the die
+                {
+                    pic.Image = bmpEmpty;
+                    pic.Refresh();
+                }
+            }
+        }
 
+        private void CheckWounds()
+        {
+            //Check each image to see if it's a strike. If it is, call SendStrike, sending the die's current image
+            //Strike dice are reset to empty images
+            foreach (PictureBox pic in grpRoll.Controls.OfType<PictureBox>())
+            {
+                bool isSent = false;
+                if (pic.Image == bmpGreenStrike)    //Green die sent
+                {
+                    SendStrike(bmpGreenStrike);
+                    isSent = true;
+                }
+                else if (pic.Image == bmpYellowStrike)  //Yellow die sent
+                {
+                    SendStrike(bmpYellowStrike);
+                    isSent = true;
+                }
+                else if (pic.Image == bmpRedStrike)     //Red die sent
+                {
+                    SendStrike(bmpRedStrike);
+                    isSent = true;
+                }
+                if (isSent)     //a strike has been sent, refresh the die
+                {
+                    pic.Image = bmpEmpty;
+                    pic.Refresh();
+                }
+            }
+        }
+
+        private void SendStrike(Bitmap strikeImage)
+        {
+            //Go through each empty spot in Wounds and place the wounded die there
+            foreach (PictureBox pic in grpWounds.Controls.OfType<PictureBox>())
+            {
+                if (pic.Image == bmpEmpty
+                    || pic.Visible == false)
+                {
+                    pic.Image = strikeImage;
+                    pic.Visible = true;
+                    pic.Refresh();
+                    break;
+                }
+            }
+        }
+
+        private void SendPoint(Bitmap pointImage)
+        {
+            //Go through each empty spot in Loot and place the loot die there
+            foreach (PictureBox pic in grpLoot.Controls.OfType<PictureBox>())
+            {
+                if (pic.Image == bmpEmpty
+                    || pic.Visible == false)
+                {
+                    pic.Image = pointImage;
+                    pic.Visible = true;
+                    pic.Refresh();
+                    break;
+                }
+            }
+        }
 
         private void RollRoom()
         {
@@ -221,10 +315,18 @@ namespace Loot_Dice
             const int MinRoll = 1;
             const int MaxRoll = 6;
 
+            //Move wounds to wound area
+            CheckWounds();
+
+            //Move points to loot area
+            CheckLoot();
+
             //Rolls the dice in the room
-            foreach(PictureBox die in grpRoll.Controls.OfType<PictureBox>())
+            foreach (PictureBox die in grpRoll.Controls.OfType<PictureBox>())
             {
-                //if die is empty, get a new die
+                
+                
+                
                 if (die.Image == bmpEmpty)
                 {
                     //get a new die
@@ -246,9 +348,11 @@ namespace Loot_Dice
                         case 4:
                         case 5:
                             die.Image = bmpGreenPoint;
+                            points++;
                             break;
                         case 6:
                             die.Image = bmpGreenStrike;
+                            strikes++;
                             break;
                     }
                 }
@@ -264,10 +368,12 @@ namespace Loot_Dice
                         case 3:
                         case 4:
                             die.Image = bmpYellowPoint;
+                            points++;
                             break;
                         case 5:
                         case 6:
                             die.Image = bmpYellowStrike;
+                            strikes++;
                             break;
                     }
                 }
@@ -282,16 +388,25 @@ namespace Loot_Dice
                             break;
                         case 3:
                             die.Image = bmpRedPoint;
+                            points++;
                             break;
                         case 4:
                         case 5:
                         case 6:
                             die.Image = bmpRedStrike;
+                            strikes++;
                             break;
                     }
                 }
                 die.Refresh();
             }
+        }
+
+        private void ResetStrikePoint()
+        {
+            //Resets strikes and points to 0
+            strikes = 0;
+            points = 0;
         }
 
         private void frmMain_Load(object sender, EventArgs e)
@@ -305,11 +420,12 @@ namespace Loot_Dice
             //TODO temporarily just moves to next player, resets dice
             SetDice();
             StartTurn();
+            ResetStrikePoint();
         }
 
         private void btnRoll_Click(object sender, EventArgs e)
         {
-            
+            //move current room's dice to their appropriate areas. Fill dice, and roll them
             ShowRoom(true);
             RollRoom();
         }
