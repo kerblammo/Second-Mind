@@ -39,14 +39,12 @@
             this.btnRoll = new System.Windows.Forms.Button();
             this.btnBank = new System.Windows.Forms.Button();
             this.grpRoll = new System.Windows.Forms.GroupBox();
-            this.picRoll3 = new System.Windows.Forms.PictureBox();
-            this.picRoll2 = new System.Windows.Forms.PictureBox();
-            this.picRoll1 = new System.Windows.Forms.PictureBox();
             this.grpWounds = new System.Windows.Forms.GroupBox();
-            this.picWound3 = new System.Windows.Forms.PictureBox();
-            this.picWound2 = new System.Windows.Forms.PictureBox();
-            this.picWound1 = new System.Windows.Forms.PictureBox();
             this.grpLoot = new System.Windows.Forms.GroupBox();
+            this.lblRound = new System.Windows.Forms.Label();
+            this.lblPlayer = new System.Windows.Forms.Label();
+            this.lblLeader = new System.Windows.Forms.Label();
+            this.lblHiScore = new System.Windows.Forms.Label();
             this.picLoot12 = new System.Windows.Forms.PictureBox();
             this.picLoot11 = new System.Windows.Forms.PictureBox();
             this.picLoot10 = new System.Windows.Forms.PictureBox();
@@ -59,18 +57,14 @@
             this.picLoot02 = new System.Windows.Forms.PictureBox();
             this.picLoot09 = new System.Windows.Forms.PictureBox();
             this.picLoot05 = new System.Windows.Forms.PictureBox();
-            this.lblRound = new System.Windows.Forms.Label();
-            this.lblPlayer = new System.Windows.Forms.Label();
-            this.lblLeader = new System.Windows.Forms.Label();
-            this.lblHiScore = new System.Windows.Forms.Label();
+            this.picWound3 = new System.Windows.Forms.PictureBox();
+            this.picWound2 = new System.Windows.Forms.PictureBox();
+            this.picWound1 = new System.Windows.Forms.PictureBox();
+            this.picRoll3 = new System.Windows.Forms.PictureBox();
+            this.picRoll2 = new System.Windows.Forms.PictureBox();
+            this.picRoll1 = new System.Windows.Forms.PictureBox();
             this.grpRoll.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picRoll3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picRoll2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picRoll1)).BeginInit();
             this.grpWounds.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picWound3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picWound2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picWound1)).BeginInit();
             this.grpLoot.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picLoot12)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picLoot11)).BeginInit();
@@ -84,6 +78,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.picLoot02)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picLoot09)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picLoot05)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picWound3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picWound2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picWound1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRoll3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRoll2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRoll1)).BeginInit();
             this.SuspendLayout();
             // 
             // lvwPlayers
@@ -158,6 +158,7 @@
             this.btnRoll.TabIndex = 5;
             this.btnRoll.Text = "Kick in the Door";
             this.btnRoll.UseVisualStyleBackColor = true;
+            this.btnRoll.Click += new System.EventHandler(this.btnRoll_Click);
             // 
             // btnBank
             // 
@@ -183,36 +184,6 @@
             this.grpRoll.TabStop = false;
             this.grpRoll.Text = "Current Room";
             // 
-            // picRoll3
-            // 
-            this.picRoll3.Image = ((System.Drawing.Image)(resources.GetObject("picRoll3.Image")));
-            this.picRoll3.Location = new System.Drawing.Point(144, 19);
-            this.picRoll3.Name = "picRoll3";
-            this.picRoll3.Size = new System.Drawing.Size(50, 50);
-            this.picRoll3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picRoll3.TabIndex = 2;
-            this.picRoll3.TabStop = false;
-            // 
-            // picRoll2
-            // 
-            this.picRoll2.Image = ((System.Drawing.Image)(resources.GetObject("picRoll2.Image")));
-            this.picRoll2.Location = new System.Drawing.Point(75, 19);
-            this.picRoll2.Name = "picRoll2";
-            this.picRoll2.Size = new System.Drawing.Size(50, 50);
-            this.picRoll2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picRoll2.TabIndex = 1;
-            this.picRoll2.TabStop = false;
-            // 
-            // picRoll1
-            // 
-            this.picRoll1.Image = ((System.Drawing.Image)(resources.GetObject("picRoll1.Image")));
-            this.picRoll1.Location = new System.Drawing.Point(6, 19);
-            this.picRoll1.Name = "picRoll1";
-            this.picRoll1.Size = new System.Drawing.Size(50, 50);
-            this.picRoll1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picRoll1.TabIndex = 0;
-            this.picRoll1.TabStop = false;
-            // 
             // grpWounds
             // 
             this.grpWounds.Controls.Add(this.picWound3);
@@ -224,36 +195,6 @@
             this.grpWounds.TabIndex = 8;
             this.grpWounds.TabStop = false;
             this.grpWounds.Text = "Wounds";
-            // 
-            // picWound3
-            // 
-            this.picWound3.Image = ((System.Drawing.Image)(resources.GetObject("picWound3.Image")));
-            this.picWound3.Location = new System.Drawing.Point(144, 19);
-            this.picWound3.Name = "picWound3";
-            this.picWound3.Size = new System.Drawing.Size(50, 50);
-            this.picWound3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picWound3.TabIndex = 2;
-            this.picWound3.TabStop = false;
-            // 
-            // picWound2
-            // 
-            this.picWound2.Image = ((System.Drawing.Image)(resources.GetObject("picWound2.Image")));
-            this.picWound2.Location = new System.Drawing.Point(75, 19);
-            this.picWound2.Name = "picWound2";
-            this.picWound2.Size = new System.Drawing.Size(50, 50);
-            this.picWound2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picWound2.TabIndex = 1;
-            this.picWound2.TabStop = false;
-            // 
-            // picWound1
-            // 
-            this.picWound1.Image = ((System.Drawing.Image)(resources.GetObject("picWound1.Image")));
-            this.picWound1.Location = new System.Drawing.Point(6, 19);
-            this.picWound1.Name = "picWound1";
-            this.picWound1.Size = new System.Drawing.Size(50, 50);
-            this.picWound1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picWound1.TabIndex = 0;
-            this.picWound1.TabStop = false;
             // 
             // grpLoot
             // 
@@ -275,6 +216,46 @@
             this.grpLoot.TabIndex = 9;
             this.grpLoot.TabStop = false;
             this.grpLoot.Text = "Loot";
+            // 
+            // lblRound
+            // 
+            this.lblRound.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblRound.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRound.Location = new System.Drawing.Point(349, 16);
+            this.lblRound.Name = "lblRound";
+            this.lblRound.Size = new System.Drawing.Size(119, 24);
+            this.lblRound.TabIndex = 10;
+            this.lblRound.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // lblPlayer
+            // 
+            this.lblPlayer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblPlayer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPlayer.Location = new System.Drawing.Point(349, 42);
+            this.lblPlayer.Name = "lblPlayer";
+            this.lblPlayer.Size = new System.Drawing.Size(119, 24);
+            this.lblPlayer.TabIndex = 11;
+            this.lblPlayer.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // lblLeader
+            // 
+            this.lblLeader.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblLeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLeader.Location = new System.Drawing.Point(349, 68);
+            this.lblLeader.Name = "lblLeader";
+            this.lblLeader.Size = new System.Drawing.Size(119, 24);
+            this.lblLeader.TabIndex = 12;
+            this.lblLeader.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // lblHiScore
+            // 
+            this.lblHiScore.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblHiScore.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblHiScore.Location = new System.Drawing.Point(349, 94);
+            this.lblHiScore.Name = "lblHiScore";
+            this.lblHiScore.Size = new System.Drawing.Size(119, 24);
+            this.lblHiScore.TabIndex = 13;
+            this.lblHiScore.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // picLoot12
             // 
@@ -396,45 +377,65 @@
             this.picLoot05.TabIndex = 4;
             this.picLoot05.TabStop = false;
             // 
-            // lblRound
+            // picWound3
             // 
-            this.lblRound.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblRound.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRound.Location = new System.Drawing.Point(349, 16);
-            this.lblRound.Name = "lblRound";
-            this.lblRound.Size = new System.Drawing.Size(119, 24);
-            this.lblRound.TabIndex = 10;
-            this.lblRound.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.picWound3.Image = ((System.Drawing.Image)(resources.GetObject("picWound3.Image")));
+            this.picWound3.Location = new System.Drawing.Point(144, 19);
+            this.picWound3.Name = "picWound3";
+            this.picWound3.Size = new System.Drawing.Size(50, 50);
+            this.picWound3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picWound3.TabIndex = 2;
+            this.picWound3.TabStop = false;
             // 
-            // lblPlayer
+            // picWound2
             // 
-            this.lblPlayer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblPlayer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPlayer.Location = new System.Drawing.Point(349, 42);
-            this.lblPlayer.Name = "lblPlayer";
-            this.lblPlayer.Size = new System.Drawing.Size(119, 24);
-            this.lblPlayer.TabIndex = 11;
-            this.lblPlayer.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.picWound2.Image = ((System.Drawing.Image)(resources.GetObject("picWound2.Image")));
+            this.picWound2.Location = new System.Drawing.Point(75, 19);
+            this.picWound2.Name = "picWound2";
+            this.picWound2.Size = new System.Drawing.Size(50, 50);
+            this.picWound2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picWound2.TabIndex = 1;
+            this.picWound2.TabStop = false;
             // 
-            // lblLeader
+            // picWound1
             // 
-            this.lblLeader.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblLeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLeader.Location = new System.Drawing.Point(349, 68);
-            this.lblLeader.Name = "lblLeader";
-            this.lblLeader.Size = new System.Drawing.Size(119, 24);
-            this.lblLeader.TabIndex = 12;
-            this.lblLeader.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.picWound1.Image = ((System.Drawing.Image)(resources.GetObject("picWound1.Image")));
+            this.picWound1.Location = new System.Drawing.Point(6, 19);
+            this.picWound1.Name = "picWound1";
+            this.picWound1.Size = new System.Drawing.Size(50, 50);
+            this.picWound1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picWound1.TabIndex = 0;
+            this.picWound1.TabStop = false;
             // 
-            // lblHiScore
+            // picRoll3
             // 
-            this.lblHiScore.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblHiScore.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblHiScore.Location = new System.Drawing.Point(349, 94);
-            this.lblHiScore.Name = "lblHiScore";
-            this.lblHiScore.Size = new System.Drawing.Size(119, 24);
-            this.lblHiScore.TabIndex = 13;
-            this.lblHiScore.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.picRoll3.Image = ((System.Drawing.Image)(resources.GetObject("picRoll3.Image")));
+            this.picRoll3.Location = new System.Drawing.Point(144, 19);
+            this.picRoll3.Name = "picRoll3";
+            this.picRoll3.Size = new System.Drawing.Size(50, 50);
+            this.picRoll3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picRoll3.TabIndex = 2;
+            this.picRoll3.TabStop = false;
+            // 
+            // picRoll2
+            // 
+            this.picRoll2.Image = ((System.Drawing.Image)(resources.GetObject("picRoll2.Image")));
+            this.picRoll2.Location = new System.Drawing.Point(75, 19);
+            this.picRoll2.Name = "picRoll2";
+            this.picRoll2.Size = new System.Drawing.Size(50, 50);
+            this.picRoll2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picRoll2.TabIndex = 1;
+            this.picRoll2.TabStop = false;
+            // 
+            // picRoll1
+            // 
+            this.picRoll1.Image = ((System.Drawing.Image)(resources.GetObject("picRoll1.Image")));
+            this.picRoll1.Location = new System.Drawing.Point(6, 19);
+            this.picRoll1.Name = "picRoll1";
+            this.picRoll1.Size = new System.Drawing.Size(50, 50);
+            this.picRoll1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picRoll1.TabIndex = 0;
+            this.picRoll1.TabStop = false;
             // 
             // frmMain
             // 
@@ -463,13 +464,7 @@
             this.Text = "Loot Dice";
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.grpRoll.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.picRoll3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picRoll2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picRoll1)).EndInit();
             this.grpWounds.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.picWound3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picWound2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picWound1)).EndInit();
             this.grpLoot.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picLoot12)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picLoot11)).EndInit();
@@ -483,6 +478,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.picLoot02)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picLoot09)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picLoot05)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picWound3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picWound2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picWound1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRoll3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRoll2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRoll1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -35,17 +35,26 @@ namespace Loot_Dice
         int playersIndex = 0;      //index of current player in lvwPlayers
         bool isNextPlayerPositive = false;      //indicates if play is moving up or down the list
         int round = -1;              //current round. 0 means game has not started
-        
-        
+        Bitmap bmpEmpty = Properties.Resources.Empty;
+        Bitmap bmpGreenRoll = Properties.Resources.GreenRoll;
+        Bitmap bmpGreenPoint = Properties.Resources.GreenPoint;
+        Bitmap bmpGreenStrike = Properties.Resources.GreenStrike;
+        Bitmap bmpYellowRoll = Properties.Resources.YellowRoll;
+        Bitmap bmpYellowPoint = Properties.Resources.YellowPoint;
+        Bitmap bmpYellowStrike = Properties.Resources.YellowStrike;
+        Bitmap bmpRedRoll = Properties.Resources.RedRoll;
+        Bitmap bmpRedPoint = Properties.Resources.RedPoint;
+        Bitmap bmpRedStrike = Properties.Resources.RedStrike;
+
 
         private void ResetGame()
         {
             //Resets the form to its default state
 
+            //set dice
+            SetDice();
             //hide dice
-            HideRoom();
-            HideWounds();
-            HideLoot();
+            ShowAllDice(false);
 
             //get player list
             GetPlayers();
@@ -53,10 +62,21 @@ namespace Loot_Dice
             StartTurn();
         }
 
+        bool isGameOver = false;
         private void GameOver()
         {
-            //STUBBED. Call when game is over
+            //TODO:STUBBED. Call when game is over
             MessageBox.Show("GAME OVER");
+            isGameOver = true;
+        }
+
+        private void SetDice()
+        {
+            foreach (PictureBox pic in grpRoll.Controls.OfType<PictureBox>())
+            {
+                pic.Image = bmpEmpty;
+                pic.Refresh();
+            }
         }
 
         private void StartTurn()
@@ -64,6 +84,9 @@ namespace Loot_Dice
             //called when turn ends to start the next turn
 
             int totalPlayers = lvwPlayers.Items.Count;
+
+            //hide old players' dice
+            ShowAllDice(false);
 
             //Determine next player
 
@@ -85,14 +108,18 @@ namespace Loot_Dice
                     StartRound();
                 }
             }
+            if (!isGameOver)
+            {
+                //Display Current Player
+                lblPlayer.Text = lvwPlayers.Items[playersIndex].Text;
+                MessageBox.Show("It is now " + lvwPlayers.Items[playersIndex].Text + "'s turn.", "Next Turn");
 
-            //Display Current Player
-            lblPlayer.Text = lvwPlayers.Items[playersIndex].Text;
-
-            //Find High Score and Leader
-            int leaderIndex = FindHiScore();
-            lblLeader.Text = lvwPlayers.Items[leaderIndex].Text;
-            lblHiScore.Text = lvwPlayers.Items[leaderIndex].SubItems[1].Text;
+                //Find High Score and Leader
+                int leaderIndex = FindHiScore();
+                lblLeader.Text = lvwPlayers.Items[leaderIndex].Text;
+                lblHiScore.Text = lvwPlayers.Items[leaderIndex].SubItems[1].Text;
+            }
+           
 
 
 
@@ -150,30 +177,120 @@ namespace Loot_Dice
             }
         }
 
-        private void HideLoot()
+        private void ShowLoot(bool show)
         {
             //Make each picbox in grpLoot invisible
             foreach (Control pic in grpLoot.Controls.OfType<PictureBox>())
             {
-                pic.Visible = false;
+                pic.Visible = show;
             }
         }
 
-        private void HideWounds()
+        private void ShowWounds(bool show)
         {
             //Make each picbox in grpWounds invisible
             foreach (Control pic in grpWounds.Controls.OfType<PictureBox>())
             {
-                pic.Visible = false;
+                pic.Visible = show;
             }
         }
 
-        private void HideRoom()
+        private void ShowRoom(bool show)
         {
             //Make each picbox in grpRoll invisible
             foreach (Control pic in grpRoll.Controls.OfType<PictureBox>())
             {
-                pic.Visible = false;
+                pic.Visible = show;
+            }
+        }
+
+        private void ShowAllDice(bool show)
+        {
+            //toggles visibility of all dice, where show is the visibility
+            ShowRoom(show);
+            ShowWounds(show);
+            ShowLoot(show);
+        }
+
+
+
+        private void RollRoom()
+        {
+            //create random generator
+            Random rand = new Random();
+            const int MinRoll = 1;
+            const int MaxRoll = 6;
+
+            //Rolls the dice in the room
+            foreach(PictureBox die in grpRoll.Controls.OfType<PictureBox>())
+            {
+                //if die is empty, get a new die
+                if (die.Image == bmpEmpty)
+                {
+                    //get a new die
+                    //TODO: make this random. Temporarily using green dice for debugging
+                    die.Image = bmpGreenRoll;
+                    die.Refresh();
+                }
+                //die is not/no longer empty, so we can roll it
+                if (die.Image == bmpGreenRoll)    //Green
+                {
+                    int roll = rand.Next(MinRoll, MaxRoll + 1);
+                    switch (roll)
+                    {
+                        case 1:
+                        case 2:
+                            die.Image =bmpGreenRoll;
+                            break;
+                        case 3:
+                        case 4:
+                        case 5:
+                            die.Image = bmpGreenPoint;
+                            break;
+                        case 6:
+                            die.Image = bmpGreenStrike;
+                            break;
+                    }
+                }
+                else if (die.Image == bmpYellowRoll) //Yellow
+                {
+                    int roll = rand.Next(MinRoll, MaxRoll + 1);
+                    switch (roll)
+                    {
+                        case 1:
+                        case 2:
+                            die.Image = bmpYellowRoll;
+                            break;
+                        case 3:
+                        case 4:
+                            die.Image = bmpYellowPoint;
+                            break;
+                        case 5:
+                        case 6:
+                            die.Image = bmpYellowStrike;
+                            break;
+                    }
+                }
+                else if (die.Image == bmpRedRoll)     //red
+                {
+                    int roll = rand.Next(MinRoll, MaxRoll + 1);
+                    switch (roll)
+                    {
+                        case 1:
+                        case 2:
+                            die.Image = bmpRedRoll;
+                            break;
+                        case 3:
+                            die.Image = bmpRedPoint;
+                            break;
+                        case 4:
+                        case 5:
+                        case 6:
+                            die.Image = bmpRedStrike;
+                            break;
+                    }
+                }
+                die.Refresh();
             }
         }
 
@@ -185,8 +302,16 @@ namespace Loot_Dice
 
         private void btnBank_Click(object sender, EventArgs e)
         {
-            //TODO temporarily just moves to next player
+            //TODO temporarily just moves to next player, resets dice
+            SetDice();
             StartTurn();
+        }
+
+        private void btnRoll_Click(object sender, EventArgs e)
+        {
+            
+            ShowRoom(true);
+            RollRoom();
         }
     }
 }
