@@ -47,11 +47,15 @@ namespace Loot_Dice
         Bitmap bmpRedPoint = Properties.Resources.RedPoint;
         Bitmap bmpRedStrike = Properties.Resources.RedStrike;
 
+        //DO NOT MODIFY, this is the total collection of dice
+        //6 green, 4 yellow, 3 red
+        List<string> FreshDiceBag = new List<string> { "", "GREEN", "GREEN", "GREEN", "GREEN", "GREEN", "GREEN", "YELLOW", "YELLOW", "YELLOW", "YELLOW", "RED", "RED", "RED" };
+        List<string> CurrentDiceBag = new List<string> { "", "GREEN", "GREEN", "GREEN", "GREEN", "GREEN", "GREEN", "YELLOW", "YELLOW", "YELLOW", "YELLOW", "RED", "RED", "RED" };
 
         private void ResetGame()
         {
             //Resets the form to its default state
-
+            
             //set dice
             SetDice();
             //hide dice
@@ -80,9 +84,26 @@ namespace Loot_Dice
             }
         }
 
+        private void RefreshDice()
+        {
+            CurrentDiceBag.Clear();
+            int green = 5, yellow = 9; 
+            //This function sets the current dice bag to its initial state
+            for (int i = 0; i < FreshDiceBag.Count; i++)
+            {
+                if (i == 0) { CurrentDiceBag.Add(""); }
+                if (i <= green) { CurrentDiceBag.Add("GREEN"); }
+                else if (i <= yellow) { CurrentDiceBag.Add("YELLOW"); }
+                else { CurrentDiceBag.Add("RED"); }
+            }
+
+        }
         private void StartTurn()
         {
             //called when turn ends to start the next turn
+
+            //Get a fresh dice bag
+            RefreshDice();
 
             int totalPlayers = lvwPlayers.Items.Count;
 
@@ -314,6 +335,7 @@ namespace Loot_Dice
             Random rand = new Random();
             const int MinRoll = 1;
             const int MaxRoll = 6;
+            
 
             //Move wounds to wound area
             CheckWounds();
@@ -324,14 +346,35 @@ namespace Loot_Dice
             //Rolls the dice in the room
             foreach (PictureBox die in grpRoll.Controls.OfType<PictureBox>())
             {
-                
-                
-                
-                if (die.Image == bmpEmpty)
+
+
+                int totalDice = CurrentDiceBag.Count;
+                if (die.Image == bmpEmpty
+                    && totalDice > 1)
+
                 {
                     //get a new die
                     //TODO: make this random. Temporarily using green dice for debugging
-                    die.Image = bmpGreenRoll;
+                    int index;
+                    if (totalDice >= 2) { index = rand.Next(1, totalDice - 1); }
+                    else { index = 1; }
+                
+                    totalDice--;
+                    string colour = CurrentDiceBag[index];
+                    CurrentDiceBag.RemoveAt(index);
+
+                    switch (colour)
+                    {
+                        case "GREEN":
+                            die.Image = bmpGreenRoll;
+                            break;
+                        case "YELLOW":
+                            die.Image = bmpYellowRoll;
+                            break;
+                        case "RED":
+                            die.Image = bmpRedRoll;
+                            break;
+                    }
                     die.Refresh();
                 }
                 //die is not/no longer empty, so we can roll it

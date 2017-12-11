@@ -266,9 +266,9 @@
             this.grpLoot.Controls.Add(this.picLoot03);
             this.grpLoot.Controls.Add(this.picLoot06);
             this.grpLoot.Controls.Add(this.picLoot04);
+            this.grpLoot.Controls.Add(this.picLoot09);
             this.grpLoot.Controls.Add(this.picLoot01);
             this.grpLoot.Controls.Add(this.picLoot02);
-            this.grpLoot.Controls.Add(this.picLoot09);
             this.grpLoot.Controls.Add(this.picLoot05);
             this.grpLoot.Location = new System.Drawing.Point(219, 191);
             this.grpLoot.Name = "grpLoot";
@@ -280,7 +280,7 @@
             // picLoot12
             // 
             this.picLoot12.Image = ((System.Drawing.Image)(resources.GetObject("picLoot12.Image")));
-            this.picLoot12.Location = new System.Drawing.Point(191, 139);
+            this.picLoot12.Location = new System.Drawing.Point(6, 19);
             this.picLoot12.Name = "picLoot12";
             this.picLoot12.Size = new System.Drawing.Size(50, 50);
             this.picLoot12.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -290,7 +290,7 @@
             // picLoot11
             // 
             this.picLoot11.Image = ((System.Drawing.Image)(resources.GetObject("picLoot11.Image")));
-            this.picLoot11.Location = new System.Drawing.Point(130, 139);
+            this.picLoot11.Location = new System.Drawing.Point(68, 19);
             this.picLoot11.Name = "picLoot11";
             this.picLoot11.Size = new System.Drawing.Size(50, 50);
             this.picLoot11.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -300,7 +300,7 @@
             // picLoot10
             // 
             this.picLoot10.Image = ((System.Drawing.Image)(resources.GetObject("picLoot10.Image")));
-            this.picLoot10.Location = new System.Drawing.Point(69, 139);
+            this.picLoot10.Location = new System.Drawing.Point(130, 19);
             this.picLoot10.Name = "picLoot10";
             this.picLoot10.Size = new System.Drawing.Size(50, 50);
             this.picLoot10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -310,7 +310,7 @@
             // picLoot07
             // 
             this.picLoot07.Image = ((System.Drawing.Image)(resources.GetObject("picLoot07.Image")));
-            this.picLoot07.Location = new System.Drawing.Point(130, 79);
+            this.picLoot07.Location = new System.Drawing.Point(192, 19);
             this.picLoot07.Name = "picLoot07";
             this.picLoot07.Size = new System.Drawing.Size(50, 50);
             this.picLoot07.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -320,7 +320,7 @@
             // picLoot08
             // 
             this.picLoot08.Image = ((System.Drawing.Image)(resources.GetObject("picLoot08.Image")));
-            this.picLoot08.Location = new System.Drawing.Point(191, 79);
+            this.picLoot08.Location = new System.Drawing.Point(6, 79);
             this.picLoot08.Name = "picLoot08";
             this.picLoot08.Size = new System.Drawing.Size(50, 50);
             this.picLoot08.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -330,7 +330,7 @@
             // picLoot03
             // 
             this.picLoot03.Image = ((System.Drawing.Image)(resources.GetObject("picLoot03.Image")));
-            this.picLoot03.Location = new System.Drawing.Point(130, 19);
+            this.picLoot03.Location = new System.Drawing.Point(68, 79);
             this.picLoot03.Name = "picLoot03";
             this.picLoot03.Size = new System.Drawing.Size(50, 50);
             this.picLoot03.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -340,7 +340,7 @@
             // picLoot06
             // 
             this.picLoot06.Image = ((System.Drawing.Image)(resources.GetObject("picLoot06.Image")));
-            this.picLoot06.Location = new System.Drawing.Point(69, 79);
+            this.picLoot06.Location = new System.Drawing.Point(130, 79);
             this.picLoot06.Name = "picLoot06";
             this.picLoot06.Size = new System.Drawing.Size(50, 50);
             this.picLoot06.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -350,7 +350,7 @@
             // picLoot04
             // 
             this.picLoot04.Image = ((System.Drawing.Image)(resources.GetObject("picLoot04.Image")));
-            this.picLoot04.Location = new System.Drawing.Point(191, 19);
+            this.picLoot04.Location = new System.Drawing.Point(192, 79);
             this.picLoot04.Name = "picLoot04";
             this.picLoot04.Size = new System.Drawing.Size(50, 50);
             this.picLoot04.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -360,7 +360,7 @@
             // picLoot01
             // 
             this.picLoot01.Image = ((System.Drawing.Image)(resources.GetObject("picLoot01.Image")));
-            this.picLoot01.Location = new System.Drawing.Point(8, 19);
+            this.picLoot01.Location = new System.Drawing.Point(68, 139);
             this.picLoot01.Name = "picLoot01";
             this.picLoot01.Size = new System.Drawing.Size(50, 50);
             this.picLoot01.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -370,7 +370,7 @@
             // picLoot02
             // 
             this.picLoot02.Image = ((System.Drawing.Image)(resources.GetObject("picLoot02.Image")));
-            this.picLoot02.Location = new System.Drawing.Point(69, 19);
+            this.picLoot02.Location = new System.Drawing.Point(130, 139);
             this.picLoot02.Name = "picLoot02";
             this.picLoot02.Size = new System.Drawing.Size(50, 50);
             this.picLoot02.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -380,7 +380,7 @@
             // picLoot09
             // 
             this.picLoot09.Image = ((System.Drawing.Image)(resources.GetObject("picLoot09.Image")));
-            this.picLoot09.Location = new System.Drawing.Point(8, 139);
+            this.picLoot09.Location = new System.Drawing.Point(6, 139);
             this.picLoot09.Name = "picLoot09";
             this.picLoot09.Size = new System.Drawing.Size(50, 50);
             this.picLoot09.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -390,7 +390,7 @@
             // picLoot05
             // 
             this.picLoot05.Image = ((System.Drawing.Image)(resources.GetObject("picLoot05.Image")));
-            this.picLoot05.Location = new System.Drawing.Point(8, 79);
+            this.picLoot05.Location = new System.Drawing.Point(192, 139);
             this.picLoot05.Name = "picLoot05";
             this.picLoot05.Size = new System.Drawing.Size(50, 50);
             this.picLoot05.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
