@@ -35,7 +35,10 @@ namespace Loot_Dice
         const int MaxStrikes = 3;   //maximum number of strikes a player can have
         int playersIndex = 0;      //index of current player in lvwPlayers
         bool isNextPlayerPositive = false;      //indicates if play is moving up or down the list
+        bool isBagEmpty = false;    //indicates if the dice bag is currently empty
         int round = -1;              //current round. 0 means game has not started
+        int kicks;  //counts how many times the player kicks in the door
+        const int MaxKicks = 4;     //max number of times a player can kick in the  door
         Bitmap bmpEmpty = Properties.Resources.Empty;
         Bitmap bmpGreenRoll = Properties.Resources.GreenRoll;
         Bitmap bmpGreenPoint = Properties.Resources.GreenPoint;
@@ -49,8 +52,8 @@ namespace Loot_Dice
 
         //DO NOT MODIFY, this is the total collection of dice
         //6 green, 4 yellow, 3 red
-        List<string> FreshDiceBag = new List<string> { "", "GREEN", "GREEN", "GREEN", "GREEN", "GREEN", "GREEN", "YELLOW", "YELLOW", "YELLOW", "YELLOW", "RED", "RED", "RED" };
-        List<string> CurrentDiceBag = new List<string> { "", "GREEN", "GREEN", "GREEN", "GREEN", "GREEN", "GREEN", "YELLOW", "YELLOW", "YELLOW", "YELLOW", "RED", "RED", "RED" };
+        List<string> FreshDiceBag = new List<string> { "",  "GREEN", "GREEN", "GREEN", "GREEN", "GREEN", "YELLOW", "YELLOW", "YELLOW", "YELLOW", "RED", "RED", "RED" };
+        List<string> CurrentDiceBag = new List<string> { "",  "GREEN", "GREEN", "GREEN", "GREEN", "GREEN", "YELLOW", "YELLOW", "YELLOW", "YELLOW", "RED", "RED", "RED" };
 
         private void ResetGame()
         {
@@ -71,8 +74,26 @@ namespace Loot_Dice
         private void GameOver()
         {
             //TODO:STUBBED. Call when game is over
-            MessageBox.Show("GAME OVER");
+            MessageBox.Show("The dungeon has been plundered. \n" + GetScoreLeader() + " has secured the most loot, and is victorious!", "Game Over");
             isGameOver = true;
+        }
+
+        private string GetScoreLeader()
+        {
+            //returns the name of the player with the highest score
+            string ScoreLeader = lvwPlayers.Items[0].Text;
+            int hiscore = Convert.ToInt32(lvwPlayers.Items[0].SubItems[1].Text);
+            for (int i = 1; i < lvwPlayers.Items.Count; i++)
+            {
+                int score = Convert.ToInt32(lvwPlayers.Items[i].SubItems[1].Text);
+                if (score > hiscore)
+                {
+                    hiscore = score;
+                    ScoreLeader = lvwPlayers.Items[i].Text;
+                }
+            }
+            return ScoreLeader;
+            
         }
 
         private void SetDice()
@@ -86,8 +107,9 @@ namespace Loot_Dice
 
         private void RefreshDice()
         {
+            isBagEmpty = false;
             CurrentDiceBag.Clear();
-            int green = 5, yellow = 9; 
+            int green = 4, yellow = 8; 
             //This function sets the current dice bag to its initial state
             for (int i = 0; i < FreshDiceBag.Count; i++)
             {
@@ -98,14 +120,28 @@ namespace Loot_Dice
             }
 
         }
+
+        private void UpdateScoreboard()
+        {
+            int score = Convert.ToInt32(lvwPlayers.Items[playersIndex].SubItems[1].Text.ToString());
+            score += points;
+            lvwPlayers.Items[playersIndex].SubItems[1].Text = score.ToString();
+        }
+
         private void StartTurn()
         {
             //called when turn ends to start the next turn
 
+
+            //update scoreboard
+            UpdateScoreboard();
+
+            btnRoll.Enabled = true;
             //Get a fresh dice bag
             RefreshDice();
 
             int totalPlayers = lvwPlayers.Items.Count;
+
 
             //hide old players' dice
             ShowAllDice(false);
@@ -180,6 +216,7 @@ namespace Loot_Dice
             }
             else
             {
+                UpdateScoreboard();
                 GameOver();
             }
         }
@@ -335,6 +372,7 @@ namespace Loot_Dice
             Random rand = new Random();
             const int MinRoll = 1;
             const int MaxRoll = 6;
+
             
 
             //Move wounds to wound area
@@ -343,106 +381,148 @@ namespace Loot_Dice
             //Move points to loot area
             CheckLoot();
 
-            //Rolls the dice in the room
-            foreach (PictureBox die in grpRoll.Controls.OfType<PictureBox>())
+            
+
+
+                if (!isBagEmpty)
+                {
+
+                    //Rolls the dice in the room
+                    foreach (PictureBox die in grpRoll.Controls.OfType<PictureBox>())
+                    {
+
+
+                        int totalDice = CurrentDiceBag.Count;
+                        if (totalDice > 2)
+
+                        {
+                            //get a new die
+                            //TODO: make this random. Temporarily using green dice for debugging
+                            int index;
+                            if (totalDice >= 2) { index = rand.Next(1, totalDice - 1); }
+                            else { index = 1; }
+
+                            totalDice--;
+                            string colour = CurrentDiceBag[index];
+                            CurrentDiceBag.RemoveAt(index);
+
+                            switch (colour)
+                            {
+                                case "GREEN":
+                                    die.Image = bmpGreenRoll;
+                                    break;
+                                case "YELLOW":
+                                    die.Image = bmpYellowRoll;
+                                    break;
+                                case "RED":
+                                    die.Image = bmpRedRoll;
+                                    break;
+                            }
+                            die.Refresh();
+                        }
+                        
+                        //die is not/no longer empty, so we can roll it
+                        if (die.Image == bmpGreenRoll)    //Green
+                        {
+                            int roll = rand.Next(MinRoll, MaxRoll + 1);
+                            switch (roll)
+                            {
+                                case 1:
+                                case 2:
+                                    die.Image = bmpGreenRoll;
+                                    break;
+                                case 3:
+                                case 4:
+                                case 5:
+                                    die.Image = bmpGreenPoint;
+                                    points++;
+                                    break;
+                                case 6:
+                                    die.Image = bmpGreenStrike;
+                                    strikes++;
+                                    break;
+                            }
+                        }
+                        else if (die.Image == bmpYellowRoll) //Yellow
+                        {
+                            int roll = rand.Next(MinRoll, MaxRoll + 1);
+                            switch (roll)
+                            {
+                                case 1:
+                                case 2:
+                                    die.Image = bmpYellowRoll;
+                                    break;
+                                case 3:
+                                case 4:
+                                    die.Image = bmpYellowPoint;
+                                    points++;
+                                    break;
+                                case 5:
+                                case 6:
+                                    die.Image = bmpYellowStrike;
+                                    strikes++;
+                                    break;
+                            }
+                        }
+                        else if (die.Image == bmpRedRoll)     //red
+                        {
+                            int roll = rand.Next(MinRoll, MaxRoll + 1);
+                            switch (roll)
+                            {
+                                case 1:
+                                case 2:
+                                    die.Image = bmpRedRoll;
+                                    break;
+                                case 3:
+                                    die.Image = bmpRedPoint;
+                                    points++;
+                                    break;
+                                case 4:
+                                case 5:
+                                case 6:
+                                    die.Image = bmpRedStrike;
+                                    strikes++;
+                                    break;
+                            }
+                        }
+                        die.Refresh();
+                    }
+                }
+
+            kicks++;
+            if (!CheckStrikes())    //check if there are strikes remaining
             {
-
-
-                int totalDice = CurrentDiceBag.Count;
-                if (die.Image == bmpEmpty
-                    && totalDice > 1)
-
-                {
-                    //get a new die
-                    //TODO: make this random. Temporarily using green dice for debugging
-                    int index;
-                    if (totalDice >= 2) { index = rand.Next(1, totalDice - 1); }
-                    else { index = 1; }
                 
-                    totalDice--;
-                    string colour = CurrentDiceBag[index];
-                    CurrentDiceBag.RemoveAt(index);
+                if (kicks >= MaxKicks)
+                { //There are no more dice 
 
-                    switch (colour)
-                    {
-                        case "GREEN":
-                            die.Image = bmpGreenRoll;
-                            break;
-                        case "YELLOW":
-                            die.Image = bmpYellowRoll;
-                            break;
-                        case "RED":
-                            die.Image = bmpRedRoll;
-                            break;
-                    }
-                    die.Refresh();
+                    //Display end of dice bag, and prevent player from drawing more dice
+                    MessageBox.Show("There are no more dice to draw!", "Out of Dice");
+                    isBagEmpty = true;
+                    btnRoll.Enabled = false;
+                    CheckWounds();
+                    CheckLoot();
+                    
+
                 }
-                //die is not/no longer empty, so we can roll it
-                if (die.Image == bmpGreenRoll)    //Green
-                {
-                    int roll = rand.Next(MinRoll, MaxRoll + 1);
-                    switch (roll)
-                    {
-                        case 1:
-                        case 2:
-                            die.Image =bmpGreenRoll;
-                            break;
-                        case 3:
-                        case 4:
-                        case 5:
-                            die.Image = bmpGreenPoint;
-                            points++;
-                            break;
-                        case 6:
-                            die.Image = bmpGreenStrike;
-                            strikes++;
-                            break;
-                    }
-                }
-                else if (die.Image == bmpYellowRoll) //Yellow
-                {
-                    int roll = rand.Next(MinRoll, MaxRoll + 1);
-                    switch (roll)
-                    {
-                        case 1:
-                        case 2:
-                            die.Image = bmpYellowRoll;
-                            break;
-                        case 3:
-                        case 4:
-                            die.Image = bmpYellowPoint;
-                            points++;
-                            break;
-                        case 5:
-                        case 6:
-                            die.Image = bmpYellowStrike;
-                            strikes++;
-                            break;
-                    }
-                }
-                else if (die.Image == bmpRedRoll)     //red
-                {
-                    int roll = rand.Next(MinRoll, MaxRoll + 1);
-                    switch (roll)
-                    {
-                        case 1:
-                        case 2:
-                            die.Image = bmpRedRoll;
-                            break;
-                        case 3:
-                            die.Image = bmpRedPoint;
-                            points++;
-                            break;
-                        case 4:
-                        case 5:
-                        case 6:
-                            die.Image = bmpRedStrike;
-                            strikes++;
-                            break;
-                    }
-                }
-                die.Refresh();
             }
+            
+        }
+
+        private bool CheckStrikes()
+        {
+            //Checks if player is all out of wounds. If it does, it forces them to pass their turn and score no points
+            bool isBust = false;
+            if (strikes >= MaxStrikes)
+            {
+                MessageBox.Show("You have no remaining wounds. \nThe monsters steal your loot and you must return to the tavern in disgrace!", "Bust!");
+                points = 0;
+                CheckWounds();
+                CheckLoot();
+                btnRoll.Enabled = false;
+                isBust = true;
+            }
+            return isBust;
         }
 
         private void ResetStrikePoint()
@@ -450,6 +530,7 @@ namespace Loot_Dice
             //Resets strikes and points to 0
             strikes = 0;
             points = 0;
+            kicks = 0;
         }
 
         private void frmMain_Load(object sender, EventArgs e)
