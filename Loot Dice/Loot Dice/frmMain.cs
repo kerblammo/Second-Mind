@@ -74,7 +74,14 @@ namespace Loot_Dice
         private void GameOver()
         {
             //Call when the game is over, displays winner and closes game
-            MessageBox.Show("The dungeon has been plundered. \n" + lblLeader.Text + " has secured the most loot, and is victorious!", "Game Over");
+            if (lblLeader.Text == "")
+            {
+                MessageBox.Show("The day ends and the dungeon disappears once more. \nNobody has secured any loot. You may wish to consider a new line of work.", "Game Over");
+            }
+            else
+            {
+                MessageBox.Show("The day ends and the dungeon disappears once more. \n" + lblLeader.Text + " has secured the most loot, and is victorious!", "Game Over");
+            }
             isGameOver = true;
             Close();
         }

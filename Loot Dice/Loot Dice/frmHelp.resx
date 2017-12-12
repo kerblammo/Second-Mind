@@ -117,4 +117,21 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="textBox1.Text" xml:space="preserve">
+    <value>These 'monsters' are soon discovered to be arcane constructs fashioned by the wizard who created the Loot Tower long ago. They are powered by gold, jewels, and other fabulous  treasures.As a brave adventurer, it is your job to beat the loot out of them before they flee deep intothe tower or give you a beating in exchange.
+
+In the game, monsters are represented by dice. There are twelve in total: 5 green goblins, 4 yellow orcs, and 3 red trolls. The goblins are the easiest dice to score from, while the orcs are neutral and the trolls are the most difficult. 
+
+On your turn you may choose to kick in a door of the Loot Tower and battle the monsters within. You take three dice and roll them. Add up the number of monsters you defeat  and wounds you have received. You may then choose to end your turn by returning to the tavern, or you may kick in another door. But be warned: if you ever roll three or more wounds, then you have been defeated by the monsters. You may retreat with your life, but not with your gold. Don't push your luck too far!</value>
+  </data>
+  <data name="textBox2.Text" xml:space="preserve">
+    <value>A mysterious dungeon known as the Loot Tower appears roughly once every 27 years for a single day only. Now is the time to seize the opportunity to get rich quick!
+
+You and your friends face off to see who can cart the most treasure out of the loot tower, but beware! Monsters roam the darkened halls and fiercely protect their home.</value>
+  </data>
+  <data name="textBox3.Text" xml:space="preserve">
+    <value>Play proceeds for four rounds in alternating order between the players. After each player returns to the inn, if they have more loot than the current leader, they become the current leader. There are no ties or draws in Loot Dice! The first person to accumulate the most wealth and return to the tavern gets the best seats in the house.
+
+Good luck!</value>
+  </data>
 </root>
