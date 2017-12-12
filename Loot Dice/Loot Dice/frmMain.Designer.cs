@@ -55,9 +55,9 @@
             this.picLoot03 = new System.Windows.Forms.PictureBox();
             this.picLoot06 = new System.Windows.Forms.PictureBox();
             this.picLoot04 = new System.Windows.Forms.PictureBox();
+            this.picLoot09 = new System.Windows.Forms.PictureBox();
             this.picLoot01 = new System.Windows.Forms.PictureBox();
             this.picLoot02 = new System.Windows.Forms.PictureBox();
-            this.picLoot09 = new System.Windows.Forms.PictureBox();
             this.picLoot05 = new System.Windows.Forms.PictureBox();
             this.lblRound = new System.Windows.Forms.Label();
             this.lblPlayer = new System.Windows.Forms.Label();
@@ -80,9 +80,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.picLoot03)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picLoot06)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picLoot04)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picLoot09)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picLoot01)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picLoot02)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picLoot09)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picLoot05)).BeginInit();
             this.SuspendLayout();
             // 
@@ -357,6 +357,16 @@
             this.picLoot04.TabIndex = 7;
             this.picLoot04.TabStop = false;
             // 
+            // picLoot09
+            // 
+            this.picLoot09.Image = ((System.Drawing.Image)(resources.GetObject("picLoot09.Image")));
+            this.picLoot09.Location = new System.Drawing.Point(6, 139);
+            this.picLoot09.Name = "picLoot09";
+            this.picLoot09.Size = new System.Drawing.Size(50, 50);
+            this.picLoot09.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picLoot09.TabIndex = 5;
+            this.picLoot09.TabStop = false;
+            // 
             // picLoot01
             // 
             this.picLoot01.Image = ((System.Drawing.Image)(resources.GetObject("picLoot01.Image")));
@@ -376,16 +386,6 @@
             this.picLoot02.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picLoot02.TabIndex = 8;
             this.picLoot02.TabStop = false;
-            // 
-            // picLoot09
-            // 
-            this.picLoot09.Image = ((System.Drawing.Image)(resources.GetObject("picLoot09.Image")));
-            this.picLoot09.Location = new System.Drawing.Point(6, 139);
-            this.picLoot09.Name = "picLoot09";
-            this.picLoot09.Size = new System.Drawing.Size(50, 50);
-            this.picLoot09.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picLoot09.TabIndex = 5;
-            this.picLoot09.TabStop = false;
             // 
             // picLoot05
             // 
@@ -435,6 +435,7 @@
             this.lblHiScore.Name = "lblHiScore";
             this.lblHiScore.Size = new System.Drawing.Size(119, 24);
             this.lblHiScore.TabIndex = 13;
+            this.lblHiScore.Text = "0";
             this.lblHiScore.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // frmMain
@@ -480,9 +481,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.picLoot03)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picLoot06)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picLoot04)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picLoot09)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picLoot01)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picLoot02)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picLoot09)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picLoot05)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

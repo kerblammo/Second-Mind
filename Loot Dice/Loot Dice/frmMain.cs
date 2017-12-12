@@ -73,17 +73,18 @@ namespace Loot_Dice
         bool isGameOver = false;
         private void GameOver()
         {
-            //TODO:STUBBED. Call when game is over
-            MessageBox.Show("The dungeon has been plundered. \n" + GetScoreLeader() + " has secured the most loot, and is victorious!", "Game Over");
+            //Call when the game is over, displays winner and closes game
+            MessageBox.Show("The dungeon has been plundered. \n" + lblLeader.Text + " has secured the most loot, and is victorious!", "Game Over");
             isGameOver = true;
+            Close();
         }
 
         private string GetScoreLeader()
         {
             //returns the name of the player with the highest score
             string ScoreLeader = lvwPlayers.Items[0].Text;
-            int hiscore = Convert.ToInt32(lvwPlayers.Items[0].SubItems[1].Text);
-            for (int i = 1; i < lvwPlayers.Items.Count; i++)
+            int hiscore = Convert.ToInt32(lvwPlayers.Items[lvwPlayers.Items.Count - 1].SubItems[1].Text);
+            for (int i = lvwPlayers.Items.Count - 2; i >= 0; i--)
             {
                 int score = Convert.ToInt32(lvwPlayers.Items[i].SubItems[1].Text);
                 if (score > hiscore)
@@ -123,9 +124,13 @@ namespace Loot_Dice
 
         private void UpdateScoreboard()
         {
-            int score = Convert.ToInt32(lvwPlayers.Items[playersIndex].SubItems[1].Text.ToString());
+            int currentPlayer = lvwPlayers.Items.IndexOfKey(lblPlayer.Text);
+            if (currentPlayer > -1)
+            {
+            int score = Convert.ToInt32(lvwPlayers.Items[currentPlayer].SubItems[1].Text.ToString());
             score += points;
-            lvwPlayers.Items[playersIndex].SubItems[1].Text = score.ToString();
+            lvwPlayers.Items[currentPlayer].SubItems[1].Text = score.ToString();
+            }
         }
 
         private void StartTurn()
@@ -134,7 +139,7 @@ namespace Loot_Dice
 
 
             //update scoreboard
-            UpdateScoreboard();
+            //UpdateScoreboard();
 
             btnRoll.Enabled = true;
             //Get a fresh dice bag
@@ -176,9 +181,10 @@ namespace Loot_Dice
                     MessageBox.Show("It is now " + lvwPlayers.Items[playersIndex].Text + "'s turn.", "Next Turn");
                 }
                 //Find High Score and Leader
-                int leaderIndex = FindHiScore();
-                lblLeader.Text = lvwPlayers.Items[leaderIndex].Text;
-                lblHiScore.Text = lvwPlayers.Items[leaderIndex].SubItems[1].Text;
+                //int leaderIndex = FindHiScore();
+                //lblLeader.Text = lvwPlayers.Items[leaderIndex].Text;
+                //lblHiScore.Text = lvwPlayers.Items[leaderIndex].SubItems[1].Text;
+                
             }
            
 
@@ -186,20 +192,22 @@ namespace Loot_Dice
 
         }
 
-        private int FindHiScore()
+        private void FindHiScore()
         {
-            //returns the index of the player with the highest score
-            int index = 0, hiScore = Convert.ToInt32(lvwPlayers.Items[0].SubItems[1].Text);
-            for (int i = 1; i < lvwPlayers.Items.Count; i++)
+            //checks if the current player's score is higher 
+            //if it is, update the hiscore
+
+            int currentPlayer = lvwPlayers.Items.IndexOfKey(lblPlayer.Text);
+            int score = 0;
+            if (currentPlayer > -1) {score = Convert.ToInt32(lvwPlayers.Items[currentPlayer].SubItems[1].Text); }
+
+            int hiscore = Convert.ToInt32(lblHiScore.Text);
+            if (score > hiscore)
             {
-                int num = Convert.ToInt32(lvwPlayers.Items[i].SubItems[1].Text);
-                if (num > hiScore)
-                {
-                    hiScore = num;
-                    index = i;
-                }
+                lblLeader.Text = lblPlayer.Text;
+                lblHiScore.Text = score.ToString();
             }
-            return index;
+
         }
 
         private void StartRound()
@@ -216,7 +224,7 @@ namespace Loot_Dice
             }
             else
             {
-                UpdateScoreboard();
+                //UpdateScoreboard();
                 GameOver();
             }
         }
@@ -235,6 +243,7 @@ namespace Loot_Dice
                 ListViewItem lvi = new ListViewItem();
                 lvi.SubItems.Add("0");
                 lvi.Text = name;
+                lvi.Name = name;
                 lvwPlayers.Items.Add(lvi);
             }
         }
@@ -397,7 +406,6 @@ namespace Loot_Dice
 
                         {
                             //get a new die
-                            //TODO: make this random. Temporarily using green dice for debugging
                             int index;
                             if (totalDice >= 2) { index = rand.Next(1, totalDice - 1); }
                             else { index = 1; }
@@ -541,10 +549,15 @@ namespace Loot_Dice
 
         private void btnBank_Click(object sender, EventArgs e)
         {
-            //TODO temporarily just moves to next player, resets dice
+            //Tabulates points and passes control to the next player
+
+            UpdateScoreboard();
+            FindHiScore();
             SetDice();
             StartTurn();
             ResetStrikePoint();
+            
+
         }
 
         private void btnRoll_Click(object sender, EventArgs e)
